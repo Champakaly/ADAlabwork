@@ -1,0 +1,71 @@
+#include<stdio.h>
+
+int a[10];
+void merge(int low,int mid,int high)
+{
+    int i = low;
+    int j = mid+1;
+    int k = 0;
+    int c[10];
+    while(i<=mid && j<=high)
+    {
+        if(a[i]<a[j])
+        {
+            c[k]=a[i];
+            i++;
+            k++;
+        }
+        else
+        {
+            c[k]=a[j];
+            j++;
+            k++;
+        }
+    }
+    while(i<=mid)
+    {
+        c[k]=a[i];
+        i++;
+        k++;
+    }
+   while(j<=high)
+    {
+        c[k]=a[j];
+        j++;
+        k++;
+    }
+    for(i=0; i<high-low+1; i++)
+    {
+        a[i+low]=c[i];
+    }
+}
+
+
+void mergesort(int low,int high)
+{
+    int mid;
+    if(low<high)
+    {
+        mid=(low+high)/2;
+        mergesort(low, mid);
+        mergesort(mid+1, high);
+        merge(low, mid, high);
+    }
+}
+
+
+void main()
+{
+    int i, low, high;
+
+    printf("Enter the array to be sorted: ");
+    for(i=0; i<10; i++)
+        scanf("%d", &a[i]);
+    low=0;
+    high=9;
+    mergesort(low, high);
+    printf("The sorted array is: ");
+    for(i=0; i<10; i++)
+    printf("%d  ", a[i]);
+
+}
